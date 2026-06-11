@@ -8,327 +8,163 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --punch:#ea078c;--punch-dark:#c0056f;--punch-light:#fce7f3;
+  --bg:#fff;--bg2:#fdf2f8;--bg3:#f9f9f9;
+  --text:#1a1a1a;--text2:#555;--text3:#999;
+  --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.06);
+  --r-md:8px;--r-lg:12px;--r-xl:16px;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg3);color:var(--text);min-height:100vh;padding:1.5rem 1rem}
+.container{max-width:720px;margin:0 auto;background:var(--bg);border-radius:var(--r-xl);border:.5px solid var(--border);padding:1.75rem 1.75rem 2rem;box-shadow:0 2px 20px rgba(234,7,140,.07)}
 
-  :root {
-    --punch: #ea078c;
-    --punch-dark: #c0056f;
-    --punch-light: #fce7f3;
-    --punch-mid: #f472b6;
-    --bg: #ffffff;
-    --bg2: #fdf2f8;
-    --bg3: #f9f9f9;
-    --text: #1a1a1a;
-    --text2: #555;
-    --text3: #999;
-    --border: rgba(0,0,0,0.1);
-    --border2: rgba(0,0,0,0.06);
-    --radius-md: 8px;
-    --radius-lg: 12px;
-    --radius-xl: 16px;
-  }
+/* Header */
+.punch-header{display:flex;align-items:center;gap:14px;padding-bottom:1.25rem;border-bottom:.5px solid var(--border2);margin-bottom:1.25rem}
+.punch-logo{width:44px;height:44px;background:var(--punch);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(234,7,140,.35)}
+.punch-title{font-family:'Black Han Sans',sans-serif;font-size:24px;font-weight:400;color:var(--text);letter-spacing:.02em;line-height:1}
+.punch-title span{color:var(--punch)}
+.punch-sub{font-size:11px;color:var(--text3);margin-top:4px;letter-spacing:.07em;text-transform:uppercase}
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg3);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 2rem 1rem;
-  }
+/* Tabs */
+.tab-bar{display:flex;gap:4px;background:var(--bg2);border-radius:var(--r-md);padding:4px;margin-bottom:1.25rem}
+.tab-btn{flex:1;height:34px;border:none;background:transparent;border-radius:6px;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:all .15s}
+.tab-btn.active{background:var(--punch);color:#fff;box-shadow:0 2px 8px rgba(234,7,140,.3)}
+.tab-btn:not(.active):hover{color:var(--punch);background:var(--punch-light)}
+.tab-panel{display:none}.tab-panel.active{display:block}
 
-  .container {
-    max-width: 680px;
-    margin: 0 auto;
-    background: var(--bg);
-    border-radius: var(--radius-xl);
-    border: 0.5px solid var(--border);
-    padding: 1.75rem 1.75rem 2rem;
-    box-shadow: 0 2px 20px rgba(234,7,140,0.07);
-  }
+/* Drop zone */
+.drop-zone{border:1.5px dashed rgba(234,7,140,.3);border-radius:var(--r-lg);padding:2rem 1.5rem;text-align:center;cursor:pointer;transition:background .15s,border-color .15s;background:var(--bg2)}
+.drop-zone:hover,.drop-zone.drag-over{background:#fce7f3;border-color:var(--punch)}
+.upload-icon{font-size:32px;color:var(--punch);display:block;margin-bottom:8px}
+.dz-title{font-size:13px;font-weight:500;color:var(--text)}
+.dz-sub{font-size:11px;color:var(--text3);margin-top:3px}
 
-  /* ── Header ── */
-  .punch-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding-bottom: 1.25rem;
-    border-bottom: 0.5px solid var(--border2);
-    margin-bottom: 1.5rem;
-  }
-  .punch-logo {
-    width: 44px; height: 44px;
-    background: var(--punch);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    box-shadow: 0 4px 14px rgba(234,7,140,0.35);
-  }
-  .punch-title {
-    font-family: 'Black Han Sans', sans-serif;
-    font-size: 24px;
-    font-weight: 400;
-    color: var(--text);
-    letter-spacing: 0.02em;
-    line-height: 1;
-  }
-  .punch-title span { color: var(--punch); }
-  .punch-sub {
-    font-size: 11px;
-    color: var(--text3);
-    margin-top: 4px;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-  }
+/* Img grid */
+.img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:7px;margin-top:.75rem}
+.img-card{border-radius:var(--r-md);border:.5px solid var(--border);background:var(--bg);overflow:hidden;position:relative;animation:pop-in .2s ease;cursor:pointer}
+.img-card.selected{border:2px solid var(--punch);box-shadow:0 0 0 3px rgba(234,7,140,.15)}
+@keyframes pop-in{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.img-card img{width:100%;height:72px;object-fit:cover;display:block}
+.img-card .info{padding:3px 6px 4px;font-size:10px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.img-card .remove-btn{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.52);color:#fff;border:none;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;cursor:pointer;padding:0;transition:background .15s;z-index:2}
+.img-card .remove-btn:hover{background:#c0056f}
+.img-card .select-badge{position:absolute;top:3px;left:3px;background:var(--punch);color:#fff;border-radius:50%;width:18px;height:18px;font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s}
+.img-card.selected .select-badge{opacity:1}
 
-  /* ── Drop zone ── */
-  .drop-zone {
-    border: 1.5px dashed rgba(234,7,140,0.3);
-    border-radius: var(--radius-lg);
-    padding: 2.25rem 1.5rem;
-    text-align: center;
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
-    background: var(--bg2);
-  }
-  .drop-zone:hover, .drop-zone.drag-over {
-    background: #fce7f3;
-    border-color: var(--punch);
-  }
-  .drop-zone .upload-icon {
-    font-size: 34px;
-    color: var(--punch);
-    display: block;
-    margin-bottom: 10px;
-  }
-  .drop-zone .dz-title {
-    font-size: 14px; font-weight: 500; color: var(--text);
-  }
-  .drop-zone .dz-sub {
-    font-size: 12px; color: var(--text3); margin-top: 4px;
-  }
+/* Section label */
+.section-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;margin-top:1.2rem}
+#fileCount{font-size:12px;color:var(--text3);margin-top:6px}
 
-  /* ── Image grid ── */
-  .img-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 8px;
-    margin-top: 0.85rem;
-  }
-  .img-card {
-    border-radius: var(--radius-md);
-    border: 0.5px solid var(--border);
-    background: var(--bg);
-    overflow: hidden;
-    position: relative;
-    animation: pop-in 0.2s ease;
-  }
-  @keyframes pop-in {
-    from { opacity: 0; transform: scale(0.9); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-  .img-card img { width: 100%; height: 76px; object-fit: cover; display: block; }
-  .img-card .info {
-    padding: 4px 7px 5px;
-    font-size: 10px; color: var(--text2);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .img-card .remove-btn {
-    position: absolute; top: 4px; right: 4px;
-    background: rgba(0,0,0,0.52); color: #fff;
-    border: none; border-radius: 50%;
-    width: 19px; height: 19px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; cursor: pointer; padding: 0;
-    transition: background 0.15s;
-  }
-  .img-card .remove-btn:hover { background: #c0056f; }
+/* Settings grid */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:.5rem}
+.field-group{display:flex;flex-direction:column;gap:4px}
+.field-group label{font-size:11px;color:var(--text2);font-weight:500}
+.field-group input,.field-group select{height:34px;padding:0 10px;font-size:13px;font-family:'Inter',sans-serif;border:.5px solid var(--border);border-radius:var(--r-md);background:var(--bg);color:var(--text);outline:none;transition:border-color .15s;width:100%}
+.field-group input:focus,.field-group select:focus{border-color:var(--punch);box-shadow:0 0 0 3px rgba(234,7,140,.1)}
 
-  /* ── Section label ── */
-  .section-label {
-    font-size: 11px; font-weight: 600;
-    color: var(--text3);
-    text-transform: uppercase; letter-spacing: 0.07em;
-    margin-bottom: 6px; margin-top: 1.4rem;
-  }
-  #fileCount {
-    font-size: 12px; color: var(--text3); margin-top: 7px;
-  }
+/* Quality */
+.quality-row{display:flex;align-items:center;gap:8px;margin-top:6px}
+.quality-row span{font-size:12px;font-weight:500;color:var(--punch);min-width:36px}
+input[type=range]{flex:1;height:4px;accent-color:var(--punch);cursor:pointer}
 
-  /* ── Settings ── */
-  .settings-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 0.5rem;
-  }
-  .field-group { display: flex; flex-direction: column; gap: 5px; }
-  .field-group label { font-size: 11px; color: var(--text2); font-weight: 500; }
-  .field-group input, .field-group select {
-    height: 36px;
-    padding: 0 10px;
-    font-size: 13px;
-    font-family: 'Inter', sans-serif;
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--bg);
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.15s;
-    width: 100%;
-  }
-  .field-group input:focus, .field-group select:focus {
-    border-color: var(--punch);
-    box-shadow: 0 0 0 3px rgba(234,7,140,0.1);
-  }
+/* Toggle */
+.toggle-row{display:flex;align-items:center;gap:9px;margin-top:10px}
+.toggle-row label{font-size:12px;color:var(--text2);cursor:pointer;user-select:none}
+.toggle-switch{width:36px;height:20px;background:#ddd;border-radius:10px;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+.toggle-switch.on{background:var(--punch)}
+.toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle-switch.on::after{transform:translateX(16px)}
 
-  /* ── Quality slider ── */
-  .quality-row { display: flex; align-items: center; gap: 8px; }
-  .quality-row span { font-size: 12px; font-weight: 500; color: var(--punch); min-width: 36px; }
-  input[type=range] {
-    flex: 1; height: 4px;
-    accent-color: var(--punch);
-    cursor: pointer;
-  }
+/* Buttons */
+.action-row{display:flex;gap:10px;margin-top:1.1rem}
+.btn{flex:1;height:38px;border-radius:var(--r-md);font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:background .15s,transform .1s;border:none}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--punch);color:#fff;box-shadow:0 3px 12px rgba(234,7,140,.3)}
+.btn-primary:hover{background:var(--punch-dark)}
+.btn-primary:disabled{background:#e5c0d5;color:#fff;box-shadow:none;cursor:not-allowed;transform:none}
+.btn-secondary{background:var(--bg2);color:var(--punch);border:.5px solid rgba(234,7,140,.3)}
+.btn-secondary:hover{background:var(--punch-light)}
+.btn-ghost{background:transparent;color:var(--text2);border:.5px solid var(--border);flex:none;padding:0 14px}
+.btn-ghost:hover{background:var(--bg2)}
+#dl-all-btn{display:none}
 
-  /* ── Toggle ── */
-  .toggle-row { display: flex; align-items: center; gap: 9px; margin-top: 10px; }
-  .toggle-row label { font-size: 12px; color: var(--text2); cursor: pointer; user-select: none; }
-  .toggle-switch {
-    width: 36px; height: 20px;
-    background: #ddd;
-    border-radius: 10px; cursor: pointer;
-    position: relative; transition: background 0.2s; flex-shrink: 0;
-  }
-  .toggle-switch.on { background: var(--punch); }
-  .toggle-switch::after {
-    content: ''; position: absolute; top: 3px; left: 3px;
-    width: 14px; height: 14px; border-radius: 50%;
-    background: #fff; transition: transform 0.2s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  }
-  .toggle-switch.on::after { transform: translateX(16px); }
+/* Watermark panel */
+.wm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:.5rem}
+.wm-positions{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:.3rem}
+.pos-btn{height:32px;border:.5px solid var(--border);background:var(--bg);border-radius:6px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;color:var(--text2);transition:all .15s}
+.pos-btn.active{background:var(--punch);color:#fff;border-color:var(--punch)}
+.pos-btn:hover:not(.active){border-color:var(--punch);color:var(--punch)}
+.wm-preview-box{width:100%;height:110px;border:.5px solid var(--border);border-radius:var(--r-md);background:linear-gradient(135deg,#f0f0f0 25%,#e0e0e0 25%,#e0e0e0 50%,#f0f0f0 50%,#f0f0f0 75%,#e0e0e0 75%);background-size:20px 20px;position:relative;overflow:hidden;margin-top:.5rem}
+.wm-text-preview{position:absolute;font-family:'Inter',sans-serif;pointer-events:none;white-space:nowrap}
 
-  /* ── Buttons ── */
-  .action-row { display: flex; gap: 10px; margin-top: 1.25rem; }
-  .btn {
-    flex: 1; height: 40px;
-    border-radius: var(--radius-md);
-    font-size: 13px; font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    cursor: pointer;
-    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-    transition: background 0.15s, transform 0.1s;
-    border: none;
-  }
-  .btn:active { transform: scale(0.97); }
-  .btn-primary {
-    background: var(--punch); color: #fff;
-    box-shadow: 0 3px 12px rgba(234,7,140,0.3);
-  }
-  .btn-primary:hover { background: var(--punch-dark); }
-  .btn-primary:disabled {
-    background: #e5c0d5; color: #fff;
-    box-shadow: none; cursor: not-allowed; transform: none;
-  }
-  .btn-secondary {
-    background: var(--bg2); color: var(--punch);
-    border: 0.5px solid rgba(234,7,140,0.3);
-  }
-  .btn-secondary:hover { background: #fce7f3; }
-  #dl-all-btn { display: none; }
+/* Crop modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+.modal-overlay.show{display:flex}
+.modal-box{background:var(--bg);border-radius:var(--r-xl);padding:1.25rem;max-width:90vw;max-height:90vh;display:flex;flex-direction:column;gap:10px}
+.modal-title{font-size:14px;font-weight:600;color:var(--text);display:flex;align-items:center;justify-content:space-between}
+.crop-wrap{position:relative;display:inline-block;user-select:none;line-height:0}
+#cropImg{max-width:min(640px,80vw);max-height:55vh;display:block;border-radius:6px}
+.crop-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);pointer-events:none}
+.crop-rect{position:absolute;border:2px solid #fff;box-shadow:0 0 0 9999px rgba(0,0,0,.5);cursor:move;box-sizing:border-box}
+.crop-handle{position:absolute;width:10px;height:10px;background:#fff;border-radius:2px}
+.ch-tl{top:-5px;left:-5px;cursor:nw-resize}
+.ch-tr{top:-5px;right:-5px;cursor:ne-resize}
+.ch-bl{bottom:-5px;left:-5px;cursor:sw-resize}
+.ch-br{bottom:-5px;right:-5px;cursor:se-resize}
+.modal-actions{display:flex;gap:8px}
 
-  /* ── Converting overlay ── */
-  #convertingOverlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(10,0,20,0.82);
-    z-index: 9999;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    backdrop-filter: blur(3px);
-  }
-  #convertingOverlay.show { display: flex; }
+/* Preview modal */
+.preview-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:1000;align-items:center;justify-content:center;flex-direction:column;gap:14px}
+.preview-modal.show{display:flex}
+.preview-title{font-family:'Black Han Sans',sans-serif;font-size:16px;color:#fff;letter-spacing:.04em}
+.preview-title span{color:var(--punch)}
+.preview-compare{position:relative;overflow:hidden;border-radius:var(--r-lg);max-width:min(680px,90vw);user-select:none;line-height:0}
+.preview-before,.preview-after{display:block;max-width:100%;max-height:55vh;object-fit:contain}
+.preview-after-wrap{position:absolute;inset:0;overflow:hidden}
+.preview-after-wrap img{position:absolute;top:0;left:0;width:100%;max-height:55vh;object-fit:contain}
+.preview-divider{position:absolute;top:0;bottom:0;width:2px;background:#fff;cursor:ew-resize;z-index:5}
+.preview-divider::after{content:'';position:absolute;top:50%;transform:translateY(-50%);left:50%;margin-left:-14px;width:28px;height:28px;background:var(--punch);border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center}
+.preview-label{position:absolute;top:8px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.05em}
+.lbl-before{left:10px;background:rgba(0,0,0,.6);color:#fff}
+.lbl-after{right:10px;background:var(--punch);color:#fff}
+.preview-info{display:flex;gap:20px}
+.pinfo{text-align:center}
+.pinfo-val{font-size:14px;font-weight:600;color:#fff}
+.pinfo-lbl{font-size:10px;color:rgba(255,255,255,.45);margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+.pinfo-arrow{font-size:18px;color:var(--punch);display:flex;align-items:center}
+.preview-nav{display:flex;gap:8px;align-items:center}
+.preview-nav button{background:rgba(255,255,255,.1);border:.5px solid rgba(255,255,255,.2);color:#fff;border-radius:6px;height:32px;padding:0 14px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s}
+.preview-nav button:hover{background:rgba(234,7,140,.5)}
+.preview-nav .pn-idx{font-size:12px;color:rgba(255,255,255,.5);min-width:50px;text-align:center}
 
-  .punch-anim-wrap {
-    display: flex; flex-direction: column;
-    align-items: center; gap: 20px;
-  }
+/* Converting overlay */
+#convertingOverlay{display:none;position:fixed;inset:0;background:rgba(10,0,20,.85);z-index:9999;flex-direction:column;align-items:center;justify-content:center;gap:0;backdrop-filter:blur(3px)}
+#convertingOverlay.show{display:flex}
+.punch-anim-wrap{display:flex;flex-direction:column;align-items:center;gap:20px}
+.ring-wrap{position:relative;width:120px;height:120px;display:flex;align-items:center;justify-content:center}
+.pulse-bg{position:absolute;inset:0;border-radius:50%;border:2px solid var(--punch);opacity:0;animation:pulse-ring 1.6s ease-out infinite}
+.pulse-bg:nth-child(2){animation-delay:.53s}
+.pulse-bg:nth-child(3){animation-delay:1.06s}
+@keyframes pulse-ring{0%{transform:scale(.7);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+.ring-svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:rgba(255,255,255,.08);stroke-width:6}
+.ring-fg{fill:none;stroke:var(--punch);stroke-width:6;stroke-linecap:round;stroke-dasharray:339.3;stroke-dashoffset:339.3;transition:stroke-dashoffset .28s ease;filter:drop-shadow(0 0 6px rgba(234,7,140,.8))}
+.ring-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:2px}
+.ring-pct{font-size:24px;font-weight:600;color:#fff;line-height:1}
+.ring-label{font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.08em;text-transform:uppercase}
+.converting-title{font-family:'Black Han Sans',sans-serif;font-size:20px;color:#fff;letter-spacing:.04em}
+.converting-title span{color:var(--punch)}
+.converting-file{font-size:12px;color:rgba(255,255,255,.45);max-width:240px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-  /* Pulse ring behind progress circle */
-  .ring-wrap {
-    position: relative;
-    width: 120px; height: 120px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .pulse-bg {
-    position: absolute; inset: 0;
-    border-radius: 50%;
-    border: 2px solid var(--punch);
-    opacity: 0;
-    animation: pulse-ring 1.6s ease-out infinite;
-  }
-  .pulse-bg:nth-child(2) { animation-delay: 0.53s; }
-  .pulse-bg:nth-child(3) { animation-delay: 1.06s; }
-  @keyframes pulse-ring {
-    0%   { transform: scale(0.7); opacity: 0.6; }
-    100% { transform: scale(1.5); opacity: 0; }
-  }
-  .ring-svg { position: absolute; inset: 0; transform: rotate(-90deg); }
-  .ring-bg  { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 6; }
-  .ring-fg  {
-    fill: none; stroke: var(--punch);
-    stroke-width: 6; stroke-linecap: round;
-    stroke-dasharray: 339.3;
-    stroke-dashoffset: 339.3;
-    transition: stroke-dashoffset 0.28s ease;
-    filter: drop-shadow(0 0 6px rgba(234,7,140,0.8));
-  }
-  .ring-inner {
-    position: relative; z-index: 1;
-    display: flex; flex-direction: column; align-items: center; gap: 2px;
-  }
-  .ring-pct  { font-size: 24px; font-weight: 600; color: #fff; line-height: 1; }
-  .ring-label { font-size: 9px; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; text-transform: uppercase; }
-
-  .converting-title {
-    font-family: 'Black Han Sans', sans-serif;
-    font-size: 20px; color: #fff; letter-spacing: 0.04em;
-  }
-  .converting-title span { color: var(--punch); }
-  .converting-file {
-    font-size: 12px; color: rgba(255,255,255,0.45);
-    max-width: 240px; text-align: center;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-
-  /* ── Results ── */
-  .result-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 12px;
-    border-radius: var(--radius-md);
-    background: var(--bg2);
-    border: 0.5px solid var(--border2);
-    margin-bottom: 6px;
-    font-size: 12px;
-    animation: slide-in 0.22s ease;
-  }
-  @keyframes slide-in {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .result-item .dl-btn {
-    margin-left: auto;
-    font-size: 11px; padding: 0 12px; height: 28px; flex-shrink: 0;
-    background: var(--punch); color: #fff; border: none;
-    border-radius: 6px; cursor: pointer; font-family: 'Inter', sans-serif;
-    font-weight: 500; display: flex; align-items: center; gap: 4px;
-    transition: background 0.15s;
-  }
-  .result-item .dl-btn:hover { background: var(--punch-dark); }
-  .saved-positive { color: #16a34a; }
-  .saved-negative { color: #dc2626; }
+/* Results */
+.result-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--r-md);background:var(--bg2);border:.5px solid var(--border2);margin-bottom:5px;font-size:12px;animation:slide-in .22s ease}
+@keyframes slide-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.result-item .dl-btn{margin-left:auto;font-size:11px;padding:0 12px;height:26px;flex-shrink:0;background:var(--punch);color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:500;display:flex;align-items:center;gap:4px;transition:background .15s}
+.result-item .dl-btn:hover{background:var(--punch-dark)}
+.result-item .prev-btn{font-size:11px;padding:0 10px;height:26px;flex-shrink:0;background:transparent;color:var(--punch);border:.5px solid rgba(234,7,140,.4);border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:500;display:flex;align-items:center;gap:4px;transition:all .15s;margin-left:6px}
+.result-item .prev-btn:hover{background:var(--punch-light)}
+.saved-pos{color:#16a34a}.saved-neg{color:#dc2626}
 </style>
 </head>
 <body>
@@ -337,9 +173,7 @@
 <div id="convertingOverlay">
   <div class="punch-anim-wrap">
     <div class="ring-wrap">
-      <div class="pulse-bg"></div>
-      <div class="pulse-bg"></div>
-      <div class="pulse-bg"></div>
+      <div class="pulse-bg"></div><div class="pulse-bg"></div><div class="pulse-bg"></div>
       <svg class="ring-svg" viewBox="0 0 112 112" xmlns="http://www.w3.org/2000/svg">
         <circle class="ring-bg" cx="56" cy="56" r="54"/>
         <circle class="ring-fg" id="ringFg" cx="56" cy="56" r="54"/>
@@ -354,16 +188,60 @@
   </div>
 </div>
 
-<div class="container">
+<!-- Crop Modal -->
+<div class="modal-overlay" id="cropModal">
+  <div class="modal-box">
+    <div class="modal-title">
+      <span><i class="ti ti-crop" style="margin-right:6px"></i>ตัดรูปภาพ — <span id="cropFileName" style="color:var(--punch);font-weight:400;font-size:13px"></span></span>
+      <button class="btn btn-ghost" style="height:30px;font-size:12px;flex:none" onclick="closeCrop()">ยกเลิก</button>
+    </div>
+    <div class="crop-wrap" id="cropWrap">
+      <img id="cropImg" src="" alt="crop">
+      <div class="crop-rect" id="cropRect">
+        <div class="crop-handle ch-tl" data-h="tl"></div>
+        <div class="crop-handle ch-tr" data-h="tr"></div>
+        <div class="crop-handle ch-bl" data-h="bl"></div>
+        <div class="crop-handle ch-br" data-h="br"></div>
+      </div>
+    </div>
+    <div id="cropInfo" style="font-size:11px;color:var(--text3);text-align:center"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="font-size:12px" onclick="resetCrop()"><i class="ti ti-refresh"></i> รีเซ็ต</button>
+      <button class="btn btn-primary" onclick="applyCrop()"><i class="ti ti-check"></i> ใช้การตัด</button>
+    </div>
+  </div>
+</div>
 
-  <!-- Header -->
+<!-- Preview Modal -->
+<div class="preview-modal" id="previewModal">
+  <div class="preview-title">PUNCH <span>RESIZE</span> — BEFORE / AFTER</div>
+  <div class="preview-compare" id="previewCompare">
+    <img class="preview-before" id="prevBefore" src="" alt="before">
+    <div class="preview-after-wrap" id="prevAfterWrap">
+      <img class="preview-after" id="prevAfter" src="" alt="after">
+    </div>
+    <div class="preview-divider" id="prevDivider"></div>
+    <span class="preview-label lbl-before">ก่อน</span>
+    <span class="preview-label lbl-after">หลัง</span>
+  </div>
+  <div class="preview-info" id="previewInfo"></div>
+  <div class="preview-nav">
+    <button onclick="prevImage()"><i class="ti ti-chevron-left"></i></button>
+    <div class="pn-idx" id="prevIdx">1 / 1</div>
+    <button onclick="nextImage()"><i class="ti ti-chevron-right"></i></button>
+    <button onclick="closePreview()"><i class="ti ti-x"></i> ปิด</button>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="container">
   <div class="punch-header">
     <div class="punch-logo">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
         <rect x="3" y="10" width="4" height="10" rx="1.5" fill="white"/>
         <rect x="8.5" y="7" width="4" height="13" rx="1.5" fill="white"/>
         <rect x="14" y="4" width="4" height="16" rx="1.5" fill="white"/>
-        <path d="M3 20 Q12 16 21 4" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.4"/>
+        <path d="M3 20 Q12 16 21 4" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".4"/>
       </svg>
     </div>
     <div>
@@ -372,227 +250,635 @@
     </div>
   </div>
 
-  <!-- Drop Zone -->
-  <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
-    <i class="ti ti-photo-up upload-icon" aria-hidden="true"></i>
-    <div class="dz-title">คลิกหรือลากไฟล์มาวางที่นี่</div>
-    <div class="dz-sub">รองรับ JPG · PNG · WEBP · GIF · BMP — เลือกได้ทีละหลายไฟล์</div>
+  <!-- Tabs -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('resize',this)"><i class="ti ti-resize"></i> Resize &amp; แปลง</button>
+    <button class="tab-btn" onclick="switchTab('crop',this)"><i class="ti ti-crop"></i> Crop</button>
+    <button class="tab-btn" onclick="switchTab('watermark',this)"><i class="ti ti-writing"></i> Watermark</button>
   </div>
-  <input type="file" id="fileInput" multiple accept="image/*" style="display:none">
 
-  <div id="imgGrid" class="img-grid"></div>
-  <div id="fileCount"></div>
-
-  <!-- Settings -->
-  <div class="section-label" style="margin-top:1.4rem">ตั้งค่า resize</div>
-  <div class="settings-grid">
-    <div class="field-group">
-      <label>ความกว้าง (px) — 0 = อัตโนมัติ</label>
-      <input type="number" id="widthInput" value="800" min="0" max="8000">
+  <!-- ===== TAB: RESIZE ===== -->
+  <div class="tab-panel active" id="tab-resize">
+    <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+      <i class="ti ti-photo-up upload-icon"></i>
+      <div class="dz-title">คลิกหรือลากไฟล์มาวางที่นี่</div>
+      <div class="dz-sub">รองรับ JPG · PNG · WEBP · GIF · BMP — เลือกได้ทีละหลายไฟล์</div>
     </div>
-    <div class="field-group">
-      <label>ความสูง (px) — 0 = อัตโนมัติ</label>
-      <input type="number" id="heightInput" value="0" min="0" max="8000">
-    </div>
-    <div class="field-group">
-      <label>นามสกุลไฟล์</label>
-      <select id="formatSelect">
-        <option value="image/jpeg">JPG</option>
-        <option value="image/png">PNG</option>
-        <option value="image/webp" selected>WEBP</option>
-        <option value="image/gif">GIF</option>
-        <option value="image/bmp">BMP</option>
-      </select>
-    </div>
-    <div class="field-group">
-      <label>คุณภาพ (JPG / WEBP)</label>
-      <div class="quality-row" style="margin-top:6px">
-        <input type="range" id="qualityRange" min="10" max="100" value="85" step="5">
-        <span id="qualityVal">85%</span>
+    <input type="file" id="fileInput" multiple accept="image/*" style="display:none">
+    <div id="imgGrid" class="img-grid"></div>
+    <div id="fileCount"></div>
+    <div class="section-label">ตั้งค่า resize</div>
+    <div class="settings-grid">
+      <div class="field-group">
+        <label>ความกว้าง (px) — 0 = อัตโนมัติ</label>
+        <input type="number" id="widthInput" value="800" min="0" max="8000">
+      </div>
+      <div class="field-group">
+        <label>ความสูง (px) — 0 = อัตโนมัติ</label>
+        <input type="number" id="heightInput" value="0" min="0" max="8000">
+      </div>
+      <div class="field-group">
+        <label>นามสกุลไฟล์</label>
+        <select id="formatSelect">
+          <option value="image/jpeg">JPG</option>
+          <option value="image/png">PNG</option>
+          <option value="image/webp" selected>WEBP</option>
+          <option value="image/gif">GIF</option>
+          <option value="image/bmp">BMP</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>คุณภาพ (JPG / WEBP)</label>
+        <div class="quality-row">
+          <input type="range" id="qualityRange" min="10" max="100" value="85" step="5">
+          <span id="qualityVal">85%</span>
+        </div>
       </div>
     </div>
+    <div class="toggle-row">
+      <div class="toggle-switch on" id="aspectToggle" onclick="this.classList.toggle('on')"></div>
+      <label onclick="document.getElementById('aspectToggle').classList.toggle('on')">รักษาอัตราส่วนภาพ (aspect ratio)</label>
+    </div>
+    <div class="action-row">
+      <button class="btn btn-primary" id="convertBtn" onclick="convertAll()" disabled>
+        <i class="ti ti-wand"></i> แปลงและ resize ทั้งหมด
+      </button>
+      <button class="btn btn-secondary" id="dl-all-btn" onclick="downloadAll()">
+        <i class="ti ti-download"></i> ดาวน์โหลดทั้งหมด
+      </button>
+    </div>
+    <div id="results"></div>
   </div>
 
-  <div class="toggle-row">
-    <div class="toggle-switch on" id="aspectToggle" onclick="this.classList.toggle('on')"></div>
-    <label onclick="document.getElementById('aspectToggle').classList.toggle('on')">รักษาอัตราส่วนภาพ (aspect ratio)</label>
+  <!-- ===== TAB: CROP ===== -->
+  <div class="tab-panel" id="tab-crop">
+    <div class="drop-zone" id="dropZoneCrop" onclick="document.getElementById('fileInputCrop').click()">
+      <i class="ti ti-crop upload-icon"></i>
+      <div class="dz-title">คลิกหรือลากไฟล์มาวางที่นี่</div>
+      <div class="dz-sub">เลือกรูปแล้วคลิกที่รูปย่อเพื่อเปิด crop editor</div>
+    </div>
+    <input type="file" id="fileInputCrop" multiple accept="image/*" style="display:none">
+    <div id="imgGridCrop" class="img-grid"></div>
+    <div id="fileCountCrop" style="font-size:12px;color:var(--text3);margin-top:6px"></div>
+    <div class="action-row" style="margin-top:1rem">
+      <button class="btn btn-primary" id="cropDownloadBtn" onclick="downloadCropped()" disabled>
+        <i class="ti ti-download"></i> ดาวน์โหลดรูปที่ตัดแล้ว
+      </button>
+    </div>
+    <div id="cropResults"></div>
   </div>
 
-  <!-- Actions -->
-  <div class="action-row">
-    <button class="btn btn-primary" id="convertBtn" onclick="convertAll()" disabled>
-      <i class="ti ti-wand" aria-hidden="true"></i> แปลงและ resize ทั้งหมด
-    </button>
-    <button class="btn btn-secondary" id="dl-all-btn" onclick="downloadAll()">
-      <i class="ti ti-download" aria-hidden="true"></i> ดาวน์โหลดทั้งหมด
-    </button>
+  <!-- ===== TAB: WATERMARK ===== -->
+  <div class="tab-panel" id="tab-watermark">
+    <div class="drop-zone" id="dropZoneWM" onclick="document.getElementById('fileInputWM').click()">
+      <i class="ti ti-writing upload-icon"></i>
+      <div class="dz-title">คลิกหรือลากไฟล์มาวางที่นี่</div>
+      <div class="dz-sub">เพิ่มข้อความ watermark ลงบนรูปได้เลย</div>
+    </div>
+    <input type="file" id="fileInputWM" multiple accept="image/*" style="display:none">
+    <div id="imgGridWM" class="img-grid"></div>
+    <div id="fileCountWM" style="font-size:12px;color:var(--text3);margin-top:6px"></div>
+
+    <div class="section-label">ตั้งค่า watermark</div>
+    <div class="wm-grid">
+      <div class="field-group">
+        <label>ข้อความ</label>
+        <input type="text" id="wmText" value="© Punch ReSize" oninput="updateWMPreview()">
+      </div>
+      <div class="field-group">
+        <label>สีข้อความ</label>
+        <input type="color" id="wmColor" value="#ffffff" oninput="updateWMPreview()" style="padding:2px 4px;cursor:pointer">
+      </div>
+      <div class="field-group">
+        <label>ขนาดตัวอักษร (px)</label>
+        <input type="number" id="wmSize" value="32" min="8" max="200" oninput="updateWMPreview()">
+      </div>
+      <div class="field-group">
+        <label>ความโปร่งใส — <span id="wmOpacityVal" style="color:var(--punch)">70%</span></label>
+        <div class="quality-row" style="margin-top:6px">
+          <input type="range" id="wmOpacity" min="10" max="100" value="70" step="5" oninput="document.getElementById('wmOpacityVal').textContent=this.value+'%';updateWMPreview()">
+        </div>
+      </div>
+    </div>
+    <div class="field-group" style="margin-top:10px">
+      <label>ตำแหน่ง watermark</label>
+      <div class="wm-positions">
+        <button class="pos-btn" data-pos="top-left"     onclick="setPos(this)">↖ บน-ซ้าย</button>
+        <button class="pos-btn" data-pos="top-center"   onclick="setPos(this)">↑ บน-กลาง</button>
+        <button class="pos-btn" data-pos="top-right"    onclick="setPos(this)">↗ บน-ขวา</button>
+        <button class="pos-btn" data-pos="middle-left"  onclick="setPos(this)">← กลาง-ซ้าย</button>
+        <button class="pos-btn active" data-pos="center" onclick="setPos(this)">✦ กลาง</button>
+        <button class="pos-btn" data-pos="middle-right" onclick="setPos(this)">→ กลาง-ขวา</button>
+        <button class="pos-btn" data-pos="bottom-left"  onclick="setPos(this)">↙ ล่าง-ซ้าย</button>
+        <button class="pos-btn" data-pos="bottom-center" onclick="setPos(this)">↓ ล่าง-กลาง</button>
+        <button class="pos-btn" data-pos="bottom-right" onclick="setPos(this)">↘ ล่าง-ขวา</button>
+      </div>
+    </div>
+    <div class="field-group" style="margin-top:10px">
+      <label>ตัวอย่าง watermark</label>
+      <div class="wm-preview-box" id="wmPreviewBox">
+        <div class="wm-text-preview" id="wmTextPreview">© Punch ReSize</div>
+      </div>
+    </div>
+    <div class="action-row" style="margin-top:1rem">
+      <button class="btn btn-primary" id="wmBtn" onclick="applyWatermarks()" disabled>
+        <i class="ti ti-writing"></i> ใส่ Watermark ทั้งหมด
+      </button>
+      <button class="btn btn-secondary" id="wmDlAllBtn" onclick="downloadWMAll()" style="display:none">
+        <i class="ti ti-download"></i> ดาวน์โหลดทั้งหมด
+      </button>
+    </div>
+    <div id="wmResults"></div>
   </div>
-
-  <!-- Results -->
-  <div id="results"></div>
-
 </div>
 
 <script>
-const files = [];
-const results = [];
+// ─────────────────────────────────────────
+// SHARED
+// ─────────────────────────────────────────
+const files = [], results = [], cropFiles = [], cropResults = [], wmFiles = [], wmResults = [];
 let converting = false;
+const CIRC = 2 * Math.PI * 54;
 
-const fileInput  = document.getElementById('fileInput');
-const dropZone   = document.getElementById('dropZone');
-const imgGrid    = document.getElementById('imgGrid');
-const fileCount  = document.getElementById('fileCount');
-const convertBtn = document.getElementById('convertBtn');
-const dlAllBtn   = document.getElementById('dl-all-btn');
-const qualityRange = document.getElementById('qualityRange');
-const qualityVal   = document.getElementById('qualityVal');
-const overlay    = document.getElementById('convertingOverlay');
-const ringFg     = document.getElementById('ringFg');
-const ringPct    = document.getElementById('ringPct');
-const convFile   = document.getElementById('convertingFileName');
-
-const CIRCUMFERENCE = 2 * Math.PI * 54;
-
-qualityRange.addEventListener('input', () => { qualityVal.textContent = qualityRange.value + '%'; });
-fileInput.addEventListener('change', e => addFiles(Array.from(e.target.files)));
-dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
-dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop', e => {
-  e.preventDefault(); dropZone.classList.remove('drag-over');
-  addFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')));
-});
-
-function addFiles(newFiles) {
-  newFiles.forEach(f => { if (!files.find(x => x.name === f.name && x.size === f.size)) files.push(f); });
-  renderGrid(); updateUI();
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
 }
 
-function renderGrid() {
-  imgGrid.innerHTML = '';
-  files.forEach((f, i) => {
+function setupDrop(dropId, inputId, arr, gridId, countId, onAdd) {
+  const dz = document.getElementById(dropId);
+  const inp = document.getElementById(inputId);
+  inp.addEventListener('change', e => addFilesTo(Array.from(e.target.files), arr, gridId, countId, onAdd));
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault(); dz.classList.remove('drag-over');
+    addFilesTo(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')), arr, gridId, countId, onAdd);
+  });
+}
+
+function addFilesTo(newFiles, arr, gridId, countId, onAdd) {
+  newFiles.forEach(f => { if (!arr.find(x => x.name === f.name && x.size === f.size)) arr.push(f); });
+  renderGridFor(arr, gridId, countId, onAdd);
+  onAdd && onAdd();
+}
+
+function renderGridFor(arr, gridId, countId, clickCb) {
+  const grid = document.getElementById(gridId);
+  grid.innerHTML = '';
+  arr.forEach((f, i) => {
     const card = document.createElement('div');
     card.className = 'img-card';
     const url = URL.createObjectURL(f);
     card.innerHTML = `<img src="${url}" alt="${f.name}">
       <div class="info" title="${f.name}">${f.name}</div>
-      <button class="remove-btn" onclick="removeFile(${i})" aria-label="ลบ">
-        <i class="ti ti-x" style="font-size:10px"></i>
-      </button>`;
-    imgGrid.appendChild(card);
+      <button class="remove-btn" onclick="event.stopPropagation();removeFrom(${i},'${gridId}','${countId}')" aria-label="ลบ"><i class="ti ti-x" style="font-size:10px"></i></button>`;
+    if (clickCb) card.addEventListener('click', () => clickCb(i));
+    grid.appendChild(card);
   });
-  fileCount.textContent = files.length > 0 ? `เลือกแล้ว ${files.length} ไฟล์` : '';
+  document.getElementById(countId).textContent = arr.length > 0 ? `เลือกแล้ว ${arr.length} ไฟล์` : '';
 }
 
-function removeFile(i) { files.splice(i, 1); renderGrid(); updateUI(); }
-function updateUI() { convertBtn.disabled = files.length === 0 || converting; }
+function removeFrom(i, gridId, countId) {
+  const arrMap = {'imgGrid':'files','imgGridCrop':'cropFiles','imgGridWM':'wmFiles'};
+  const name = arrMap[gridId];
+  const arr = name==='files'?files:name==='cropFiles'?cropFiles:wmFiles;
+  arr.splice(i,1);
+  renderGridFor(arr, gridId, countId, gridId==='imgGridCrop'?openCropFor:null);
+  updateUIs();
+}
 
-function setProgress(pct, fileName) {
-  const offset = CIRCUMFERENCE * (1 - pct / 100);
-  ringFg.style.strokeDasharray = CIRCUMFERENCE;
-  ringFg.style.strokeDashoffset = offset;
-  ringPct.textContent = Math.round(pct) + '%';
-  convFile.textContent = fileName || '';
+function updateUIs() {
+  document.getElementById('convertBtn').disabled = files.length === 0 || converting;
+  document.getElementById('cropDownloadBtn').disabled = cropResults.length === 0;
+  document.getElementById('wmBtn').disabled = wmFiles.length === 0;
+}
+
+// ─────────────────────────────────────────
+// RESIZE TAB
+// ─────────────────────────────────────────
+setupDrop('dropZone','fileInput',files,'imgGrid','fileCount',updateUIs);
+document.getElementById('qualityRange').addEventListener('input', e => { document.getElementById('qualityVal').textContent = e.target.value + '%'; });
+
+const overlay = document.getElementById('convertingOverlay');
+const ringFg = document.getElementById('ringFg');
+
+function setProgress(pct, name) {
+  const off = CIRC * (1 - pct / 100);
+  ringFg.style.strokeDasharray = CIRC;
+  ringFg.style.strokeDashoffset = off;
+  document.getElementById('ringPct').textContent = Math.round(pct) + '%';
+  document.getElementById('convertingFileName').textContent = name || '';
 }
 
 async function convertAll() {
-  if (files.length === 0) return;
-  converting = true; convertBtn.disabled = true;
+  if (!files.length) return;
+  converting = true; updateUIs();
   results.length = 0;
   document.getElementById('results').innerHTML = '';
-  dlAllBtn.style.display = 'none';
-
-  overlay.classList.add('show');
-  setProgress(0, '');
+  document.getElementById('dl-all-btn').style.display = 'none';
+  overlay.classList.add('show'); setProgress(0, '');
 
   const w = parseInt(document.getElementById('widthInput').value) || 0;
   const h = parseInt(document.getElementById('heightInput').value) || 0;
   const fmt = document.getElementById('formatSelect').value;
-  const quality = parseInt(qualityRange.value) / 100;
-  const keepAspect = document.getElementById('aspectToggle').classList.contains('on');
+  const q = parseInt(document.getElementById('qualityRange').value) / 100;
+  const keep = document.getElementById('aspectToggle').classList.contains('on');
   const ext = fmt.split('/')[1] === 'jpeg' ? 'jpg' : fmt.split('/')[1];
 
   for (let i = 0; i < files.length; i++) {
     setProgress((i / files.length) * 100, files[i].name);
-    await new Promise(r => setTimeout(r, 30));
-
-    const blob = await processImage(files[i], w, h, fmt, quality, keepAspect);
-    const baseName = files[i].name.replace(/\.[^.]+$/, '');
-    results.push({ blob, name: `${baseName}_resized.${ext}`, originalSize: files[i].size });
-
-    setProgress(((i + 1) / files.length) * 100, files[i].name);
-    await new Promise(r => setTimeout(r, 60));
+    await tick(30);
+    const blob = await processImage(files[i], w, h, fmt, q, keep);
+    const base = files[i].name.replace(/\.[^.]+$/, '');
+    results.push({ blob, name: `${base}_resized.${ext}`, orig: files[i], origSize: files[i].size });
+    setProgress(((i+1)/files.length)*100, files[i].name);
+    await tick(50);
   }
-
   setProgress(100, 'เสร็จสิ้น!');
-  await new Promise(r => setTimeout(r, 520));
+  await tick(500);
   overlay.classList.remove('show');
-
   results.forEach((_, i) => renderResult(i));
-  dlAllBtn.style.display = 'flex';
-  converting = false; convertBtn.disabled = false;
+  document.getElementById('dl-all-btn').style.display = 'flex';
+  converting = false; updateUIs();
 }
 
-function processImage(file, targetW, targetH, fmt, quality, keepAspect) {
-  return new Promise(resolve => {
-    const img = new Image();
-    const url = URL.createObjectURL(file);
+function processImage(file, tW, tH, fmt, q, keep) {
+  return new Promise(res => {
+    const img = new Image(), url = URL.createObjectURL(file);
     img.onload = () => {
-      let ow = img.naturalWidth, oh = img.naturalHeight;
-      let nw = targetW || ow, nh = targetH || oh;
-      if (keepAspect) {
-        if (targetW && !targetH)       { nh = Math.round(oh * (targetW / ow)); }
-        else if (targetH && !targetW)  { nw = Math.round(ow * (targetH / oh)); }
-        else if (targetW && targetH)   {
-          const ratio = Math.min(targetW / ow, targetH / oh);
-          nw = Math.round(ow * ratio); nh = Math.round(oh * ratio);
-        }
+      let ow = img.naturalWidth, oh = img.naturalHeight, nw = tW || ow, nh = tH || oh;
+      if (keep) {
+        if (tW && !tH) nh = Math.round(oh * (tW/ow));
+        else if (tH && !tW) nw = Math.round(ow * (tH/oh));
+        else if (tW && tH) { const r = Math.min(tW/ow, tH/oh); nw = Math.round(ow*r); nh = Math.round(oh*r); }
       }
-      const canvas = document.createElement('canvas');
-      canvas.width = nw; canvas.height = nh;
-      const ctx = canvas.getContext('2d');
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
+      const c = document.createElement('canvas'); c.width = nw; c.height = nh;
+      const ctx = c.getContext('2d'); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(img, 0, 0, nw, nh);
       URL.revokeObjectURL(url);
-      canvas.toBlob(blob => resolve(blob), fmt, quality);
+      c.toBlob(b => res(b), fmt, q);
     };
     img.src = url;
   });
 }
 
 function renderResult(i) {
-  const r = results[i];
-  const container = document.getElementById('results');
-  if (i === 0) {
-    const lbl = document.createElement('div');
-    lbl.className = 'section-label'; lbl.textContent = 'ผลลัพธ์';
-    container.appendChild(lbl);
-  }
-  const item = document.createElement('div');
-  item.className = 'result-item';
-  const savedKB = Math.round((r.originalSize - r.blob.size) / 1024);
-  const savedClass = savedKB > 0 ? 'saved-positive' : savedKB < 0 ? 'saved-negative' : '';
-  const savedTxt   = savedKB > 0 ? `ลดลง ${savedKB} KB` : savedKB < 0 ? `เพิ่มขึ้น ${Math.abs(savedKB)} KB` : 'ขนาดเท่าเดิม';
-  item.innerHTML = `
-    <i class="ti ti-photo-check" style="font-size:17px; color:#ea078c; flex-shrink:0" aria-hidden="true"></i>
-    <div style="min-width:0; flex:1">
-      <div style="font-weight:500; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${r.name}</div>
-      <div style="font-size:10px; color:#999; margin-top:2px">${(r.blob.size/1024).toFixed(1)} KB — <span class="${savedClass}">${savedTxt}</span></div>
+  const r = results[i], cont = document.getElementById('results');
+  if (i === 0) { const l = document.createElement('div'); l.className='section-label'; l.textContent='ผลลัพธ์'; cont.appendChild(l); }
+  const el = document.createElement('div'); el.className = 'result-item';
+  const sk = Math.round((r.origSize - r.blob.size) / 1024);
+  const sc = sk > 0 ? 'saved-pos' : sk < 0 ? 'saved-neg' : '';
+  const st = sk > 0 ? `ลดลง ${sk} KB` : sk < 0 ? `เพิ่มขึ้น ${Math.abs(sk)} KB` : 'เท่าเดิม';
+  el.innerHTML = `<i class="ti ti-photo-check" style="font-size:16px;color:var(--punch);flex-shrink:0"></i>
+    <div style="min-width:0;flex:1">
+      <div style="font-weight:500;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.name}</div>
+      <div style="font-size:10px;color:var(--text3);margin-top:2px">${(r.blob.size/1024).toFixed(1)} KB — <span class="${sc}">${st}</span></div>
     </div>
-    <button class="dl-btn" onclick="downloadOne(${i})" aria-label="ดาวน์โหลด ${r.name}">
-      <i class="ti ti-download" style="font-size:12px" aria-hidden="true"></i> ดาวน์โหลด
-    </button>`;
-  container.appendChild(item);
+    <button class="prev-btn" onclick="openPreview(${i})"><i class="ti ti-eye" style="font-size:12px"></i> preview</button>
+    <button class="dl-btn" onclick="downloadOne(i,results,'results',-1)"><i class="ti ti-download" style="font-size:12px"></i> ดาวน์โหลด</button>`;
+  el.querySelector('.dl-btn').onclick = () => dlBlob(r.blob, r.name);
+  cont.appendChild(el);
 }
 
-function downloadOne(i) {
+function downloadOne(idx, arr) { dlBlob(arr[idx].blob, arr[idx].name); }
+function downloadAll() { results.forEach((r,i) => setTimeout(() => dlBlob(r.blob, r.name), i*150)); }
+function dlBlob(blob, name) { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); }
+
+// ─────────────────────────────────────────
+// CROP TAB
+// ─────────────────────────────────────────
+setupDrop('dropZoneCrop','fileInputCrop',cropFiles,'imgGridCrop','fileCountCrop', () => {
+  renderGridFor(cropFiles,'imgGridCrop','fileCountCrop', openCropFor);
+  updateUIs();
+});
+// re-bind with click handler
+function rebindCropGrid() { renderGridFor(cropFiles,'imgGridCrop','fileCountCrop', openCropFor); }
+
+let cropIdx = -1, cropRect = {x:0,y:0,w:0,h:0}, imgNat = {w:0,h:0}, imgDisp = {w:0,h:0};
+let dragging = false, dragMode = null, dragStart = null, rectStart = null;
+
+function openCropFor(i) {
+  cropIdx = i;
+  const modal = document.getElementById('cropModal');
+  const cropImg = document.getElementById('cropImg');
+  document.getElementById('cropFileName').textContent = cropFiles[i].name;
+  cropImg.onload = () => {
+    imgNat = {w: cropImg.naturalWidth, h: cropImg.naturalHeight};
+    imgDisp = {w: cropImg.offsetWidth, h: cropImg.offsetHeight};
+    resetCrop();
+  };
+  cropImg.src = URL.createObjectURL(cropFiles[i]);
+  modal.classList.add('show');
+}
+
+function resetCrop() {
+  const cropImg = document.getElementById('cropImg');
+  imgDisp = {w: cropImg.offsetWidth, h: cropImg.offsetHeight};
+  cropRect = {x:0, y:0, w:imgDisp.w, h:imgDisp.h};
+  applyCropRect();
+}
+
+function applyCropRect() {
+  const r = document.getElementById('cropRect');
+  r.style.left = cropRect.x + 'px'; r.style.top = cropRect.y + 'px';
+  r.style.width = cropRect.w + 'px'; r.style.height = cropRect.h + 'px';
+  const scX = imgNat.w / imgDisp.w, scY = imgNat.h / imgDisp.h;
+  document.getElementById('cropInfo').textContent =
+    `${Math.round(cropRect.x*scX)}, ${Math.round(cropRect.y*scY)} — ${Math.round(cropRect.w*scX)} × ${Math.round(cropRect.h*scY)} px`;
+}
+
+function closeCrop() { document.getElementById('cropModal').classList.remove('show'); }
+
+function applyCrop() {
+  const scX = imgNat.w / imgDisp.w, scY = imgNat.h / imgDisp.h;
+  const cx = Math.round(cropRect.x*scX), cy = Math.round(cropRect.y*scY);
+  const cw = Math.round(cropRect.w*scX), ch = Math.round(cropRect.h*scY);
+  const img = new Image(); img.onload = () => {
+    const c = document.createElement('canvas'); c.width = cw; c.height = ch;
+    c.getContext('2d').drawImage(img, cx, cy, cw, ch, 0, 0, cw, ch);
+    c.toBlob(blob => {
+      const base = cropFiles[cropIdx].name.replace(/\.[^.]+$/,'');
+      cropResults[cropIdx] = { blob, name: `${base}_cropped.jpg` };
+      renderCropResult(cropIdx);
+      closeCrop(); updateUIs();
+    }, 'image/jpeg', 0.92);
+  };
+  img.src = document.getElementById('cropImg').src;
+}
+
+function renderCropResult(i) {
+  const cont = document.getElementById('cropResults');
+  const existing = document.getElementById('cropRes_'+i);
+  if (existing) existing.remove();
+  if (!cropResults[i]) return;
+  const r = cropResults[i];
+  const el = document.createElement('div'); el.className='result-item'; el.id='cropRes_'+i;
+  el.innerHTML = `<i class="ti ti-scissors" style="font-size:16px;color:var(--punch);flex-shrink:0"></i>
+    <div style="min-width:0;flex:1">
+      <div style="font-weight:500;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.name}</div>
+      <div style="font-size:10px;color:var(--text3);margin-top:2px">${(r.blob.size/1024).toFixed(1)} KB — ตัดแล้ว</div>
+    </div>
+    <button class="prev-btn" onclick="openCropFor(${i})"><i class="ti ti-edit" style="font-size:12px"></i> แก้ไข</button>
+    <button class="dl-btn" onclick="dlBlob(cropResults[${i}].blob,cropResults[${i}].name)"><i class="ti ti-download" style="font-size:12px"></i> ดาวน์โหลด</button>`;
+  cont.appendChild(el);
+}
+
+function downloadCropped() { cropResults.filter(Boolean).forEach((r,i) => setTimeout(() => dlBlob(r.blob,r.name), i*150)); }
+
+// Crop drag logic
+const cropWrap = document.getElementById('cropWrap');
+const cropRectEl = document.getElementById('cropRect');
+
+cropWrap.addEventListener('mousedown', e => {
+  if (e.target.dataset.h) {
+    dragMode = 'handle:'+e.target.dataset.h;
+  } else if (e.target === cropRectEl) {
+    dragMode = 'move';
+  } else if (e.target === document.getElementById('cropImg')) {
+    dragMode = 'new';
+  } else return;
+  const wr = cropWrap.getBoundingClientRect();
+  dragStart = {x: e.clientX - wr.left, y: e.clientY - wr.top};
+  rectStart = {...cropRect};
+  dragging = true; e.preventDefault();
+});
+
+document.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  const wr = cropWrap.getBoundingClientRect();
+  const mx = Math.max(0,Math.min(e.clientX - wr.left, imgDisp.w));
+  const my = Math.max(0,Math.min(e.clientY - wr.top, imgDisp.h));
+  const dx = mx - dragStart.x, dy = my - dragStart.y;
+  if (dragMode === 'move') {
+    cropRect.x = Math.max(0, Math.min(rectStart.x+dx, imgDisp.w-cropRect.w));
+    cropRect.y = Math.max(0, Math.min(rectStart.y+dy, imgDisp.h-cropRect.h));
+  } else if (dragMode === 'new') {
+    const x0 = Math.min(dragStart.x, mx), y0 = Math.min(dragStart.y, my);
+    cropRect = {x:x0, y:y0, w:Math.abs(mx-dragStart.x), h:Math.abs(my-dragStart.y)};
+  } else if (dragMode.startsWith('handle:')) {
+    const h = dragMode.split(':')[1];
+    let {x,y,w,h:ht} = rectStart;
+    if (h==='tl') { cropRect={x:Math.min(x+w,mx),y:Math.min(y+ht,my),w:Math.abs(mx-(x+w)),h:Math.abs(my-(y+ht))}; }
+    else if (h==='tr') { cropRect={x,y:Math.min(y+ht,my),w:Math.max(1,mx-x),h:Math.abs(my-(y+ht))}; }
+    else if (h==='bl') { cropRect={x:Math.min(x+w,mx),y,w:Math.abs(mx-(x+w)),h:Math.max(1,my-y)}; }
+    else if (h==='br') { cropRect={x,y,w:Math.max(1,mx-x),h:Math.max(1,my-y)}; }
+  }
+  applyCropRect();
+});
+
+document.addEventListener('mouseup', () => { dragging = false; dragMode = null; });
+
+// Touch support for crop
+cropWrap.addEventListener('touchstart', e => {
+  const t = e.touches[0];
+  const wr = cropWrap.getBoundingClientRect();
+  if (e.target.dataset.h) dragMode = 'handle:'+e.target.dataset.h;
+  else if (e.target === cropRectEl) dragMode = 'move';
+  else if (e.target === document.getElementById('cropImg')) dragMode = 'new';
+  else return;
+  dragStart = {x:t.clientX-wr.left, y:t.clientY-wr.top};
+  rectStart = {...cropRect}; dragging = true; e.preventDefault();
+},{passive:false});
+
+document.addEventListener('touchmove', e => {
+  if (!dragging) return;
+  const t = e.touches[0], wr = cropWrap.getBoundingClientRect();
+  const mx = Math.max(0,Math.min(t.clientX-wr.left,imgDisp.w));
+  const my = Math.max(0,Math.min(t.clientY-wr.top,imgDisp.h));
+  const dx = mx-dragStart.x, dy = my-dragStart.y;
+  if (dragMode==='move'){cropRect.x=Math.max(0,Math.min(rectStart.x+dx,imgDisp.w-cropRect.w));cropRect.y=Math.max(0,Math.min(rectStart.y+dy,imgDisp.h-cropRect.h));}
+  else if(dragMode==='new'){cropRect={x:Math.min(dragStart.x,mx),y:Math.min(dragStart.y,my),w:Math.abs(mx-dragStart.x),h:Math.abs(my-dragStart.y)};}
+  applyCropRect(); e.preventDefault();
+},{passive:false});
+document.addEventListener('touchend', () => { dragging=false; dragMode=null; });
+
+// ─────────────────────────────────────────
+// WATERMARK TAB
+// ─────────────────────────────────────────
+setupDrop('dropZoneWM','fileInputWM',wmFiles,'imgGridWM','fileCountWM',updateUIs);
+let wmPos = 'center';
+
+function setPos(btn) {
+  document.querySelectorAll('.pos-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active'); wmPos = btn.dataset.pos; updateWMPreview();
+}
+
+function updateWMPreview() {
+  const box = document.getElementById('wmPreviewBox');
+  const prev = document.getElementById('wmTextPreview');
+  const txt = document.getElementById('wmText').value || 'watermark';
+  const color = document.getElementById('wmColor').value;
+  const size = Math.min(parseInt(document.getElementById('wmSize').value)||32, 40);
+  const opacity = parseInt(document.getElementById('wmOpacity').value) / 100;
+  prev.textContent = txt;
+  prev.style.fontSize = size + 'px';
+  prev.style.color = color;
+  prev.style.opacity = opacity;
+  prev.style.fontFamily = "'Inter', sans-serif";
+  prev.style.fontWeight = '600';
+  prev.style.textShadow = '0 1px 3px rgba(0,0,0,.5)';
+  const posMap = {
+    'top-left':    {top:'8px',left:'8px',transform:'none'},
+    'top-center':  {top:'8px',left:'50%',transform:'translateX(-50%)'},
+    'top-right':   {top:'8px',right:'8px',transform:'none',left:'auto'},
+    'middle-left': {top:'50%',left:'8px',transform:'translateY(-50%)'},
+    'center':      {top:'50%',left:'50%',transform:'translate(-50%,-50%)'},
+    'middle-right':{top:'50%',right:'8px',transform:'translateY(-50%)',left:'auto'},
+    'bottom-left': {bottom:'8px',left:'8px',transform:'none',top:'auto'},
+    'bottom-center':{bottom:'8px',left:'50%',transform:'translateX(-50%)',top:'auto'},
+    'bottom-right':{bottom:'8px',right:'8px',transform:'none',top:'auto',left:'auto'},
+  };
+  Object.assign(prev.style, {top:'',left:'',right:'',bottom:'',transform:''}, posMap[wmPos]||posMap['center']);
+}
+updateWMPreview();
+
+async function applyWatermarks() {
+  if (!wmFiles.length) return;
+  document.getElementById('wmBtn').disabled = true;
+  wmResults.length = 0;
+  document.getElementById('wmResults').innerHTML = '';
+  document.getElementById('wmDlAllBtn').style.display = 'none';
+  overlay.classList.add('show'); setProgress(0,'');
+
+  const txt = document.getElementById('wmText').value || 'watermark';
+  const color = document.getElementById('wmColor').value;
+  const fontSize = parseInt(document.getElementById('wmSize').value) || 32;
+  const opacity = parseInt(document.getElementById('wmOpacity').value) / 100;
+
+  for (let i = 0; i < wmFiles.length; i++) {
+    setProgress((i/wmFiles.length)*100, wmFiles[i].name);
+    await tick(30);
+    const blob = await addWatermark(wmFiles[i], txt, color, fontSize, opacity, wmPos);
+    const base = wmFiles[i].name.replace(/\.[^.]+$/,'');
+    wmResults.push({blob, name:`${base}_wm.jpg`, origSize: wmFiles[i].size});
+    setProgress(((i+1)/wmFiles.length)*100, wmFiles[i].name);
+    await tick(50);
+  }
+  setProgress(100,'เสร็จสิ้น!');
+  await tick(500);
+  overlay.classList.remove('show');
+  wmResults.forEach((_,i) => renderWMResult(i));
+  document.getElementById('wmDlAllBtn').style.display = 'flex';
+  document.getElementById('wmBtn').disabled = false;
+}
+
+function addWatermark(file, txt, color, fontSize, opacity, pos) {
+  return new Promise(res => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => {
+      const c = document.createElement('canvas');
+      c.width = img.naturalWidth; c.height = img.naturalHeight;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+      const fs = Math.round(fontSize * (img.naturalWidth / 800));
+      ctx.font = `bold ${fs}px Inter, Arial, sans-serif`;
+      ctx.globalAlpha = opacity;
+      ctx.fillStyle = color;
+      ctx.shadowColor = 'rgba(0,0,0,0.5)';
+      ctx.shadowBlur = Math.round(fs * 0.15);
+      const tw = ctx.measureText(txt).width;
+      const pad = Math.round(fs * 0.6);
+      const W = img.naturalWidth, H = img.naturalHeight;
+      const posMap = {
+        'top-left':    [pad, pad+fs],
+        'top-center':  [W/2-tw/2, pad+fs],
+        'top-right':   [W-tw-pad, pad+fs],
+        'middle-left': [pad, H/2+fs/3],
+        'center':      [W/2-tw/2, H/2+fs/3],
+        'middle-right':[W-tw-pad, H/2+fs/3],
+        'bottom-left': [pad, H-pad],
+        'bottom-center':[W/2-tw/2, H-pad],
+        'bottom-right':[W-tw-pad, H-pad],
+      };
+      const [x, y] = posMap[pos] || posMap['center'];
+      ctx.fillText(txt, x, y);
+      c.toBlob(b => res(b), 'image/jpeg', 0.92);
+    };
+    img.src = url;
+  });
+}
+
+function renderWMResult(i) {
+  const r = wmResults[i], cont = document.getElementById('wmResults');
+  if (i===0){const l=document.createElement('div');l.className='section-label';l.textContent='ผลลัพธ์';cont.appendChild(l);}
+  const el = document.createElement('div'); el.className='result-item';
+  el.innerHTML = `<i class="ti ti-writing" style="font-size:16px;color:var(--punch);flex-shrink:0"></i>
+    <div style="min-width:0;flex:1">
+      <div style="font-weight:500;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.name}</div>
+      <div style="font-size:10px;color:var(--text3);margin-top:2px">${(r.blob.size/1024).toFixed(1)} KB — ใส่ watermark แล้ว</div>
+    </div>
+    <button class="dl-btn" onclick="dlBlob(wmResults[${i}].blob,wmResults[${i}].name)"><i class="ti ti-download" style="font-size:12px"></i> ดาวน์โหลด</button>`;
+  cont.appendChild(el);
+}
+function downloadWMAll() { wmResults.forEach((r,i) => setTimeout(() => dlBlob(r.blob,r.name), i*150)); }
+
+// ─────────────────────────────────────────
+// BEFORE/AFTER PREVIEW
+// ─────────────────────────────────────────
+let previewIdx = 0;
+const prevDivider = document.getElementById('prevDivider');
+const prevAfterWrap = document.getElementById('prevAfterWrap');
+let pDragging = false;
+
+function openPreview(i) {
+  previewIdx = i;
+  showPreviewAt(i);
+  document.getElementById('previewModal').classList.add('show');
+}
+
+function showPreviewAt(i) {
   const r = results[i];
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(r.blob);
-  a.download = r.name; a.click();
+  document.getElementById('prevBefore').src = URL.createObjectURL(r.orig);
+  document.getElementById('prevAfter').src = URL.createObjectURL(r.blob);
+  document.getElementById('prevIdx').textContent = `${i+1} / ${results.length}`;
+  const sk = Math.round((r.origSize - r.blob.size)/1024);
+  const sc = sk>0?'#16a34a':sk<0?'#dc2626':'#999';
+  const st = sk>0?`-${sk} KB`:sk<0?`+${Math.abs(sk)} KB`:'=';
+  document.getElementById('previewInfo').innerHTML = `
+    <div class="pinfo"><div class="pinfo-val">${(r.origSize/1024).toFixed(1)} KB</div><div class="pinfo-lbl">ก่อน</div></div>
+    <div class="pinfo-arrow" style="color:${sc}">${st}</div>
+    <div class="pinfo"><div class="pinfo-val">${(r.blob.size/1024).toFixed(1)} KB</div><div class="pinfo-lbl">หลัง</div></div>`;
+  setDivider(50);
 }
 
-function downloadAll() { results.forEach((_, i) => setTimeout(() => downloadOne(i), i * 150)); }
+function setDivider(pct) {
+  prevDivider.style.left = pct + '%';
+  prevAfterWrap.style.left = pct + '%';
+  prevAfterWrap.style.right = '0';
+  const imgAfter = document.getElementById('prevAfter');
+  imgAfter.style.left = '-' + pct + '%';
+  imgAfter.style.width = (10000/pct).toFixed(1) + '%';
+  if (pct <= 0 || pct >= 100) imgAfter.style.width = '100%';
+}
+
+prevDivider.addEventListener('mousedown', e => { pDragging = true; e.preventDefault(); });
+document.addEventListener('mousemove', e => {
+  if (!pDragging) return;
+  const cmp = document.getElementById('previewCompare').getBoundingClientRect();
+  const pct = Math.max(2, Math.min(98, ((e.clientX - cmp.left) / cmp.width) * 100));
+  setDivider(pct);
+});
+document.addEventListener('mouseup', () => { pDragging = false; });
+prevDivider.addEventListener('touchstart', e => { pDragging = true; e.preventDefault(); },{passive:false});
+document.addEventListener('touchmove', e => {
+  if (!pDragging) return;
+  const t = e.touches[0], cmp = document.getElementById('previewCompare').getBoundingClientRect();
+  setDivider(Math.max(2,Math.min(98,((t.clientX-cmp.left)/cmp.width)*100)));
+},{passive:false});
+document.addEventListener('touchend', () => { pDragging=false; });
+
+function prevImage() { if(previewIdx>0){previewIdx--;showPreviewAt(previewIdx);} }
+function nextImage() { if(previewIdx<results.length-1){previewIdx++;showPreviewAt(previewIdx);} }
+function closePreview() { document.getElementById('previewModal').classList.remove('show'); }
+
+// ─────────────────────────────────────────
+// UTILS
+// ─────────────────────────────────────────
+function tick(ms) { return new Promise(r => setTimeout(r, ms)); }
 </script>
 </body>
 </html>
